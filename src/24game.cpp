@@ -14,7 +14,35 @@ std::vector<info> expr_1;
 std::vector<info> expr_2;
 std::vector<info> expr_3;
 
-std::map<std::string, float> expr_4;
+std::map<std::string, bool> sol_1;
+std::map<std::string, bool> sol_2;
+std::map<std::string, bool> sol_3;
+std::map<std::string, bool> sol_4;
+
+void classification(std::string text, std::vector<int> vec){
+    for (int i = 0; i < 3; i++){
+        try{
+            std::string s(1, text.at(i));
+            if (cards.at(s)){
+                if (cards.at(s) == (float) vec.at(0)){
+                    sol_1[text] = true;
+                }
+                else if (cards.at(s) == (float) vec.at(1)){
+                    sol_2[text] = true;
+                }
+                else if (cards.at(s) == (float) vec.at(2)){
+                    sol_3[text] = true;
+                }
+                else if (cards.at(s) == (float) vec.at(3)){
+                    sol_4[text] = true;
+                }
+            }
+        }
+        catch (std::out_of_range &err){
+            continue;
+        }
+    }
+}
 
 void doubleConfig(std::vector<bool> vec1, std::vector<bool> vec2, std::vector<bool> *res){
     *res = vec1;
@@ -185,7 +213,7 @@ void preprocess(std::vector<int> vec){
     // }
 }
 
-void solve(){
+void solve(std::vector<int> vec){
     // kombinasi 4
     // 2 dengan 2 
     // int _kombinasi = 4;
@@ -213,8 +241,10 @@ void solve(){
                 // info _info_2 = {_val, _kombinasi, _config, _text_2};
                 
                 if (_val == 24){
-                    expr_4[_text_1] = _val;
-                    expr_4[_text_2] = _val;
+                    classification(_text_1, vec);
+                    classification(_text_2, vec);
+                    // expr_4[_text_1] = _val;
+                    // expr_4[_text_2] = _val;
                     // expr_4.push_back(_info_1);
                     // expr_4.push_back(_info_2);
                 }
@@ -248,8 +278,8 @@ void solve(){
                 
                 // if (_val_1 == 24) expr_4.push_back(_info_1);
                 // if (_val_2 == 24) expr_4.push_back(_info_2);
-                if (_val_1 == 24) expr_4[_text_1] = _val_1;
-                if (_val_2 == 24) expr_4[_text_2] = _val_2;
+                if (_val_1 == 24) classification(_text_1, vec);
+                if (_val_2 == 24) classification(_text_2, vec);
             }
         }
     }
@@ -281,8 +311,8 @@ void solve(){
                 if (_val == 24) {
                     // expr_4.push_back(_info_1);
                     // expr_4.push_back(_info_2);
-                    expr_4[_text_1] = _val;
-                    expr_4[_text_2] = _val;
+                    classification(_text_1, vec);
+                    classification(_text_2, vec);
                 }
             }
         }
@@ -313,28 +343,47 @@ void solve(){
                 
                 // if (_val_1 == 24) expr_4.push_back(_info_1);
                 // if (_val_2 == 24) expr_4.push_back(_info_2);
-                if (_val_1 == 24) expr_4[_text_1] = _val_1;
-                if (_val_2 == 24) expr_4[_text_2] = _val_2;
+                if (_val_1 == 24) classification(_text_1, vec);
+                if (_val_2 == 24) classification(_text_2, vec);
             }
         }
     }
 
 
-    std::cout << "number of solution : " << expr_4.size() << std::endl;
-    
-    std::map<std::string, float>::iterator it = expr_4.end();
-
-    while (it != expr_4.begin())
-    {
-        --it;
-        std::cout << it->first << " = " << it->second << std::endl;
+    std::cout << "Jumlah Kemungkinan Solusi : " << sol_1.size() + sol_2.size() + sol_3.size() + sol_4.size() << std::endl;
+    std::map<std::string, bool>::iterator start;
+    std::map<std::string, bool>::iterator end;
+    for (int x = 0; x < 4; x++){
+        switch(x){
+            case 0:
+                start = sol_1.end();
+                end = sol_1.begin();
+                break;
+            case 1:
+                start = sol_2.end();
+                end = sol_2.begin();
+                break;
+            case 2:
+                start = sol_3.end();
+                end = sol_3.begin();
+                break;
+            case 3:
+                start = sol_4.end();
+                end = sol_4.begin();
+                break;
+        }
+        
+        while (start != end)
+        {
+            --start;
+            std::cout << start->first << std::endl;
+        }
     }
 }
 
 
-int main(){
-    std::vector<int> vec = {1, 8, 9, 12};
-
-    preprocess(vec);
-    solve();
-}
+// int main(){
+//     std::vector<int> vec = {1, 8, 9, 12};
+//     preprocess(vec);
+//     solve(vec);
+// }
