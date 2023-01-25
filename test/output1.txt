@@ -1,0 +1,20 @@
+A Q 3 K
+Jumlah Kemungkinan Solusi : 18
+A - (K - (Q * 3))
+A - (K - (3 * Q))
+A + ((Q * 3) - K)
+A + ((3 * Q) - K)
+(A - K) + (Q * 3)
+(A - K) + (3 * Q)
+(A + (Q * 3)) - K
+(A + (3 * Q)) - K
+(Q * 3) - (K - A)
+(Q * 3) + (A - K)
+((Q * 3) - K) + A
+((Q * 3) + A) - K
+(3 * Q) - (K - A)
+(3 * Q) + (A - K)
+(3 * (K - A)) - Q
+((3 * Q) - K) + A
+((3 * Q) + A) - K
+((K - A) * 3) - Q

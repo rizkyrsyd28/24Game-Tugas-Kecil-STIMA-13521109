@@ -50,7 +50,7 @@ void readfile(std::string *line){
     std::getline(std::cin, name_file);
 
     std::ifstream file; 
-    file.open("../test/" + name_file + ".txt");
+    file.open("../input/" + name_file + ".txt");
 
     while (file.fail()){
         std::cout << "File tidak ditemukan,\nNama file\n>> ";
@@ -196,7 +196,7 @@ void output(std::map<std::string, bool> sol_1,
 
         std::ofstream out_file;
         
-        out_file.open("../bin/" + name_output + ".txt");
+        out_file.open("../test/" + name_output + ".txt");
         
         out_file << line + "\nJumlah Kemungkinan Solusi : " << sol_1.size() + sol_2.size() + sol_3.size() + sol_4.size() << "\n";
         std::map<std::string, bool>::iterator start;
